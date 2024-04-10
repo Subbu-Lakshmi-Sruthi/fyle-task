@@ -1,0 +1,36 @@
+/* Prepend custom styles with a unique identifier (fyle) to avoid conflicts with bootstrap styles */
+@import url("tooltip.css");
+@import url("error.css");
+
+/* Custom Styles */
+:root {
+    --tooltip-color: #7a7a7a;
+    --tooltip-text-bgcolor: #4F5C6A;
+    --tooltip-text-color: #fff;
+    --button-bgcolor: #6359EC;
+    --error-input-borderColor: #AA4A44;
+}
+
+.fyle-wrapper {
+    max-width: 500px;
+}
+
+/* Override bootstrap styles here */
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+    width: 100% !important;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary:visited {
+    background-color: var(--button-bgcolor) !important;
+    border: 1px solid var(--button-bgcolor) !important;
+}

@@ -1,0 +1,12 @@
+.fyle-error-icon {
+    display: none;
+    float: right;
+    margin-top: -32px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.fyle-error-input {
+    border: 2px solid var(--error-input-borderColor) !important;
+}

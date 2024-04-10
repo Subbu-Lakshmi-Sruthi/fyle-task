@@ -1,0 +1,38 @@
+.fyle-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.fyle-tooltip .fyle-tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--tooltip-text-bgcolor);
+    color: var(--tooltip-text-color);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    font-size: 12px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.fyle-tooltip .fyle-tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+}
+
+.fyle-tooltip:hover .fyle-tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
