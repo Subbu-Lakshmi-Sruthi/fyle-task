@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <header class="m-1">
+    <header class="m-3">
         <span class="h4 highlight">TaxCalc.</span>
     </header>
     <div class="container mt-4 border p-5 fyle-wrapper">
@@ -29,7 +29,7 @@
                 <span class="fyle-error-icon">
                     <span class="fyle-tooltip">
                         <img src="assets/error-icon.png"/>
-                        <span class="fyle-tooltip-text">Please enter numbers only</span>
+                        <span class="fyle-tooltip-text">Please enter valid numbers only</span>
                     </span>
                 </span>
             </div>
@@ -43,14 +43,14 @@
                     </span>
                 </label>
 
-                <input type="text" class="form-control" id="extraIncome" data-type="number" 
+                <input type="text" class="form-control" id="extraIncome" data-type="number" required
                     placeholder="Enter extra income from other sources"
                 />
 
                 <span class="fyle-error-icon">
                     <span class="fyle-tooltip">
                         <img src="assets/error-icon.png"/>
-                        <span class="fyle-tooltip-text">Please enter numbers only</span>
+                        <span class="fyle-tooltip-text">Please enter valid numbers only</span>
                     </span>
                 </span>
             </div>
@@ -81,25 +81,26 @@
 
             <div class="form-group">
                 <label for="deduction">
-                    Enter total applicable Deduction (in Lakhs)
+                    Enter total deduction (in Lakhs)
                     <span class="fyle-tooltip">
                         <img src="assets/question-icon.png"/>
                         <span class="fyle-tooltip-text">Total applicable deductions is any eligible exemptions that can be subtracted from your gross income</span>
                     </span>
                 </label>
 
-                <input type="text" class="form-control" id="deduction" data-type="number"
+                <input type="text" class="form-control" id="deduction" data-type="number" required
                     placeholder="Add total applicable deductions"
                 />
                 <span class="fyle-error-icon">
                     <span class="fyle-tooltip">
                         <img src="assets/error-icon.png"/>
-                        <span class="fyle-tooltip-text">Please enter numbers only</span>
+                        <span class="fyle-tooltip-text">Please enter valid numbers only</span>
                     </span>
                 </span>
             </div>
 
             <button type="submit" class="btn btn-primary">Calculate Tax</button>
+            <p class="fyle-submit-error">*Please correct the above mistake(s) and re-submit</p>
         </form>
     </div>
 

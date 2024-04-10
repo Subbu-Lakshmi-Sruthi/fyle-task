@@ -1,36 +1,44 @@
 $(document).ready(function() {
-    // Enable tooltip
-    $('[data-toggle="tooltip"]').tooltip()
-
     // Form submit event
     $('#taxCalculatorForm').submit(function(event) {
       event.preventDefault();
-      const grossIncome = parseFloat($('#grossIncome').val()) || 0;
-      const extraIncome = parseFloat($('#extraIncome').val()) || 0;
-      const deduction = parseFloat($('#deduction').val()) || 0;
+      const grossIncome = parseFloat($('#grossIncome').val());
+      const extraIncome = parseFloat($('#extraIncome').val());
+      const deduction = parseFloat($('#deduction').val());
       var age = $('#age').val();
+      const hasError = 
+        isNaN(grossIncome) || grossIncome < 0 
+        || isNaN(extraIncome) || extraIncome < 0 
+        || isNaN(deduction) || deduction < 0|| !age;
+
+      // Show age error only on submission
       if(!age) {
         $('#ageError').css('display', 'inline');
         $('#age').addClass('fyle-error-input');
-      } else {
-        const income = calculateTax(grossIncome, extraIncome, deduction, age);
+      }
+
+      if(!hasError) {
+        const income = calculateTax(grossIncome, extraIncome || 0, deduction || 0, age);
+        $('.fyle-submit-error').css('display', 'none');
         showTaxModal(income);
+      } else {
+        $('.fyle-submit-error').css('display', 'block');
       }
     });
 
     function calculateTax(grossIncome, extraIncome, deduction, age) {
-      var taxableIncome = (grossIncome + extraIncome - deduction) * 100000; // Convert to lakhs
+      const taxableIncome = (grossIncome + extraIncome - deduction) * 100000; // Convert to lakhs
+      const taxThreshold = 800000;
+      const taxPercent = {
+        '<40' : 0.3,
+        '≥40 & <60' : 0.4,
+        '≥60': 0.1
+      }
 
       // Calculate tax based on age group
       var tax = 0;
-      if (taxableIncome > 800000) {
-        if (age == '<40') {
-          tax = 0.3 * (taxableIncome - 800000);
-        } else if (age == '≥40 & <60') {
-          tax = 0.4 * (taxableIncome - 800000);
-        } else if (age == '≥60') {
-          tax = 0.1 * (taxableIncome - 800000);
-        }
+      if (taxableIncome > taxThreshold) {
+        tax = taxPercent[age] * (taxableIncome - taxThreshold);
       }
       return taxableIncome - tax;
     }
@@ -41,16 +49,16 @@ $(document).ready(function() {
       $('#taxModal').modal('show');
     }
 
-    // Clear all error
-    $('.form-control').on('input', function() {
-      $('.fyle-error-icon').css('display', 'none');
+    // Clear age errors happened during submission
+    $('#age').on('input', function() {
+      $(this).next('.fyle-error-icon').css('display', 'none');
       $(this).removeClass('fyle-error-input');
-      $('#age').removeClass('fyle-error-input');
     });
 
-    // Input validation
+    // Input validation on type numbers
     $('*[data-type="number"]').on('input', function() {
-      if ($(this).val() != '' && isNaN(parseFloat($(this).val()))) {
+      const value = parseFloat($(this).val());
+      if ($(this).val() != '' && (isNaN(value) || value < 0)) {
         $(this).next('.fyle-error-icon').css('display', 'inline');
         $(this).addClass('fyle-error-input');
       } else {

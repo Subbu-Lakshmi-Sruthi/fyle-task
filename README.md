@@ -8,4 +8,4 @@ To set up the environment locally, you can either open the `index.js` file direc
 
 # Assumptions
 * Inputs are simplified to be taken in lakhs for ease of use.
-* Extra income and total applicable deductions are assumed to be optional. If not provided, they will be assumed to be zero.
+* All fields are assumed to be required and must contain non-negative values. If any value is invalid, the form will not submit and an error message will be displayed.

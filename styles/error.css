@@ -10,3 +10,7 @@
 .fyle-error-input {
     border: 2px solid var(--error-input-borderColor) !important;
 }
+
+.fyle-submit-error {
+    display: none;
+}
