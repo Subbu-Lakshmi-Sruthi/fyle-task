@@ -8,9 +8,14 @@ $(document).ready(function() {
       const grossIncome = parseFloat($('#grossIncome').val()) || 0;
       const extraIncome = parseFloat($('#extraIncome').val()) || 0;
       const deduction = parseFloat($('#deduction').val()) || 0;
-      const age = parseFloat($('#deduction').val()) || 0;
-      const tax = calculateTax(grossIncome, extraIncome, deduction, age);
-      showTaxModal(tax);
+      var age = $('#age').val();
+      if(!age) {
+        $('#ageError').css('display', 'inline');
+        $('#age').addClass('fyle-error-input');
+      } else {
+        const income = calculateTax(grossIncome, extraIncome, deduction, age);
+        showTaxModal(income);
+      }
     });
 
     function calculateTax(grossIncome, extraIncome, deduction, age) {
@@ -19,25 +24,29 @@ $(document).ready(function() {
       // Calculate tax based on age group
       var tax = 0;
       if (taxableIncome > 800000) {
-        if (age < 40) {
+        if (age == '<40') {
           tax = 0.3 * (taxableIncome - 800000);
-        } else if (age >= 40 && age < 60) {
+        } else if (age == '≥40 & <60') {
           tax = 0.4 * (taxableIncome - 800000);
-        } else if (age >= 60) {
+        } else if (age == '≥60') {
           tax = 0.1 * (taxableIncome - 800000);
         }
       }
-      return tax;
+      return taxableIncome - tax;
     }
 
-    function showTaxModal(tax) {
-      let content = '<p>Your overall income will be <b>' + tax.toLocaleString() + '</b> after tax deductions</p>';
-      if (tax <= 0) {
-        content = 'No Tax to be paid :)';
-      }
+    function showTaxModal(income) {
+      const content = '<p>Your overall income will be <b>' + income.toLocaleString() + '</b> after tax deductions</p>';
       $('#modalBody').html(content);
       $('#taxModal').modal('show');
     }
+
+    // Clear all error
+    $('.form-control').on('input', function() {
+      $('.fyle-error-icon').css('display', 'none');
+      $(this).removeClass('fyle-error-input');
+      $('#age').removeClass('fyle-error-input');
+    });
 
     // Input validation
     $('*[data-type="number"]').on('input', function() {
@@ -49,4 +58,5 @@ $(document).ready(function() {
         $(this).removeClass('fyle-error-input');
       }
     });
+    
   });   
